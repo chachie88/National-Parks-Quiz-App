@@ -1,0 +1,21 @@
+<div>
+    <img src="./images" alt="happy image">
+    <h1>Correct!</h1>
+    <button type="button" class="next">Next Question</button>
+</div>
+<footer>
+    <div class="questionNum">${STORE[i]+1} / ${STORE.length}</div>
+    <div class ="score">${score}</div>
+</footer>
+
+//or: 
+
+<div>
+    <img src="./images" alt="not-so-happy image">
+    <h1>Incorrect, the correct answer is: ${STORE[i].correctAnswer}</h1>
+    <button type="button" class="nextQuestion">Next Question</button>
+</div>
+<footer>
+    <div class="questionNum">${STORE[i]+1} / ${STORE.length}</div>
+    <div class ="score">${score}</div>
+</footer>
