@@ -220,3 +220,13 @@ function nextQuestion() {
         $('#question').html(newHTML);
     });
 };
+
+function launchQuiz() {
+    startQuiz();
+    askQuestion();
+    submitAnswer();
+    nextQuestion();
+}
+
+$(launchQuiz);
+
