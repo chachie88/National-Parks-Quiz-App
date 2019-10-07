@@ -132,7 +132,7 @@ const STORE = [
     }
 
 ];
-$(document).ready(function () {
+
 let questionNumber = 0;
 let currentQuestion = STORE[questionNumber].question;
 var qid = 0;
@@ -149,6 +149,7 @@ function updateQuesNum() {
 function startQuiz() {
     $('#start').on('click', function(event) {
         askQuestion();
+        $('.container2').hide();
     });
 };
 
@@ -221,9 +222,12 @@ function nextQuestion() {
     });
 };
 
+function restartQuiz() {
+
+}
+
 function launchQuiz() {
     startQuiz();
-    askQuestion();
     submitAnswer();
     nextQuestion();
 }
