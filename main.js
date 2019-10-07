@@ -133,12 +133,12 @@ const STORE = [
 
 ];
 
-let score = 0;
+let totalScore = 0;
 let questionNumber = 0;
 let currentQuestion = STORE[questionNumber].question;
 
 function askQuestion() {
-    $('.questions').html('ask question')
+    let questionHTML = ''
 }
 
 function startQuiz() {
@@ -147,7 +147,11 @@ function startQuiz() {
         askQuestion();
     });
 };
-
+// MAin page
+// Question page
+// Display one question at a time
+// Every time hit next increment the question
+// show score
 
 
 

@@ -1,17 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width>
-    <meta name="description" content="National Parks Quiz">
+    <meta name=" description" content="National Parks Quiz">
     <title>Quiz App</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+        function generateQ(qid) {
+            var letQHtml = ` 
+        <div class="question"> <h2>${STORE[qid].question}</h2> 
+            </div> <div class="answers">  
+    <input class="answers" type="radio"  value=${STORE[qid].answers[0]} >
+    ${STORE[qid].answers[0]}
+    <input class="answers" type="radio"  value=${STORE[qid].answers[1]} >
+    ${STORE[qid].answers[1]}
+    <input class="answers" type="radio"  value=${STORE[qid].answers[2]} >
+    ${STORE[qid].answers[2]}
+    <input class="answers" type="radio"  value=${STORE[qid].answers[3]} >
+    ${STORE[qid].answers[3]}
+    <br>
+    <button type="submit" onclick="saveResult()">Submit</button>
+    <div class="next-question"></div>
+    </div>
+    `;
+            return letQHtml;
+        }
+        var qid = 0;
+        var score = 0;
+        function saveResult() {
+            console.log('save result');
+            let selectedVal = $('input[class=answers]:checked').val();
+            console.log(selectedVal);
+            if (`${STORE[qid].correctAnswer}` == selectedVal) {
+                alert('Correct!');
+                score++;
+                $("#score").html("<p>Score=" + score + "</p>");
+            } else {
+                alert('Incorrect');
+            }
+            // store the result and
+            // compare tp corret val
+            // update score
+            qid++;
+            let newHtml = generateQ(qid);
+            $('#question').html(newHtml);
+            $('#qNum').html("<p>Current Quest:" + (qid +1)+ "</p>");
+        }
+        $(document).ready(function () {     
+            $('#qNum').html("<p>Current Quest:" + (qid +1)+ "</p>");
+            let htmlForQuestion = generateQ(qid    );         
+            $('#question').html(htmlForQuestion);
+        });
+    </script>
 </head>
+
 <body>
     <header>
         <div class="container1">
-            <img src="http://geogypsytraveler.com/wp-content/uploads/2016/08/01-NP-images-collage-1024x576_thumb.jpg" alt="National Parks Collage">
+            <!--<img src="http://geogypsytraveler.com/wp-content/uploads/2016/08/01-NP-images-collage-1024x576_thumb.jpg" alt="National Parks Collage">-->
             <div class="container2">
                 <h1>National Parks Quiz</h1>
                 <p>How well do you know our national parks?</p>
@@ -19,17 +70,22 @@
         </div>
     </header>
     <section class="start-button">
-        <button type="button" class="start">Start!</button>
+        <button type="button" onclick="window.location='mainScreen.html';" class="start">Start!</button>
+        <!--
+       <a href="mainScreen.html">
+            <button> Start!</button>
+        </a>      
+       -->
     </section>
-    <section class="questions">
-        <div class="submit"></div>
-        <div class="next-question"></div>
-    </section>
+    <div id="question" class="questions">
+        this is a question block
+        <div class="submit" onclick="window.location='mainScreen.html';"></div>
+    </div>
     <footer>
-        <div class="questionNum"></div>
-        <div class="score"></div>
+        <div id="qNum" class="questionNum"></div>
+        <div id='score' class="score"></div>
     </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="main.js"></script>
+
 </body>
+
 </html>

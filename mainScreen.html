@@ -1,26 +1,48 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="main.js"></script>
+<script>
+function generateQ(qid) {
+            var letQHtml = ` 
+            <div class="question"> <h2>${STORE[qid].question}</h2> 
+                </div> <div class="answers">  
+        <input class="answers" type="radio"  value=${STORE[qid].answers[0]} >
+        ${STORE[qid].answers[0]}
+        <input class="answers" type="radio"  value=${STORE[qid].answers[1]} >
+        ${STORE[qid].answers[1]}
+        <input class="answers" type="radio"  value=${STORE[qid].answers[2]} >
+        ${STORE[qid].answers[2]}
+        <input class="answers" type="radio"  value=${STORE[qid].answers[3]} >
+        ${STORE[qid].answers[3]}
+        <br>
+        </div>
+        `;
+        return letQHtml;
+        }
+let htmlForQuestion=generateQ(1);
+console.log(htmlForQuestion);
+console.log(
+$("#question").html());
+$("#question").append(htmlForQuestion);
+
+</script>
+<body>
+
 <form class="displayQuestion">
     <div>
         <img src="/.images" alt="insert image here">
     </div>
-    <div class="question">
-        <h2>${STORE[i].question}</h2>
-    </div>
-    <div class="answers">
-        <input class="answers" type="radio" value="${STORE[i].answers[0]">${STORE[i].answers[0]<br>
-        <input class="answers" type="radio" value="${STORE[i].answers[1]">${STORE[i].answers[1]<br>
-        <input class="answers" type="radio" value="${STORE[i].answers[2]">${STORE[i].answers[2]<br>
-        <input class="answers" type="radio" value="${STORE[i].answers[3]">${STORE[i].answers[3]<br>
-    </div>     
-    <div>
+    <div id="question" class="question">
+        This is question block
+    </div>   
+    <div class="buttons">
         <button type="submit">Submit</button>
-    </div>
-    <div>
-        <a href="./startScreen.html">Start</a>
-        <a href="./feedbackScreen.html">Answer</a>
-        <a href="./overallScreen.html">Results</a>
+        <button type="button" onclick="window.location='mainScreen.html';" 
+        class="start">Next Question</button>
     </div>
 </form>
 <footer>
     <div class="questionNum">${STORE[i]+1} / ${STORE.length}</div>
     <div class ="score">${score}</div>
 </footer>
+</body>
