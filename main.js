@@ -132,34 +132,91 @@ const STORE = [
     }
 
 ];
-
-let totalScore = 0;
+$(document).ready(function () {
 let questionNumber = 0;
 let currentQuestion = STORE[questionNumber].question;
+var qid = 0;
+var score = 0;
 
-function askQuestion() {
-    let questionHTML = ''
+//update question number
+function updateQuesNum() {
+    if (questionNumber < 10) {
+        $('#qNum').text('<p>Current Question: '+ (qid + 1)+'</p>')
+    }
 }
 
+//start quiz!
 function startQuiz() {
-    $('.start').on('click', function(event) {
-        event.preventDefault();
+    $('#start').on('click', function(event) {
         askQuestion();
     });
 };
-// MAin page
-// Question page
-// Display one question at a time
-// Every time hit next increment the question
-// show score
 
+//create HTML for question
+function generateQ(qid) {
+    var letQHtml = ` 
+<div class="question"> 
+    <h2>${STORE[qid].question}</h2> 
+</div> 
+<div class="answers">  
+<input class="answers" type="radio"  value=${STORE[qid].answers[0]} >
+${STORE[qid].answers[0]}
+<input class="answers" type="radio"  value=${STORE[qid].answers[1]} >
+${STORE[qid].answers[1]}
+<input class="answers" type="radio"  value=${STORE[qid].answers[2]} >
+${STORE[qid].answers[2]}
+<input class="answers" type="radio"  value=${STORE[qid].answers[3]} >
+${STORE[qid].answers[3]}
+<br>
+<button type="submit" id="subAns" onclick="saveResult()">Submit</button>
+</div>
+`;
+    return letQHtml;
+}; 
 
+//present question
+function askQuestion() {
+    let htmlForQuestion = generateQ(qid);         
+    $('#question').html(htmlForQuestion);
+};
 
+//user selects answer & correct/incorrect
+function submitAnswer() {
+    $('#subAns').on('click', function(event) {
+        let selectedVal = $('input:checked');
+        let answer = selectedVal.val();
+        let correctAns = STORE[qid].correctAnswer;
+        if (answer === correctAns) {
+            correctAns();
+        } else {
+            incorrectAns();
+        }
+    });
+};
 
+function correctAns() {
+    $('#answer').html(
+        `<h3>Correct!</h3>
+    <img src="thumbsup.jpeg" alt="hiker giving a thumbs up" class="images" width="200px">
+      <button type="button" class="nextButton button">Next Quetion</button>`
+    );
+    updateScore();
+}
 
+function incorrectAns() {
+    $('#answer').html(
+        `<h3>Incorrect!</h3>
+    <img src="sadHiker.jpeg" alt="sad hiker" width="200px">
+    <p class="rightAns">The correct answer is:</p>
+    <p class="rightAns">${STORE[qid].correctAnswer}</p>
+    <button type="button" class="nextButton button">Next</button>`
+    );
+};
 
-
-
-
-
-
+function nextQuestion() {
+    $('#answer').on('click', '.nextButton', function(event) {
+        qid++;
+        let newHTML = generateQ(qid);
+        $('#question').html(newHTML);
+    });
+};
