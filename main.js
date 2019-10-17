@@ -16,7 +16,7 @@ const STORE = [
     {
         number: 2,
         question:
-            'What president signed legislation to establish the first national park?',
+            'Which president signed legislation to establish the first national park?',
         answers: [
             'Franklin Roosevelt',
             'Woodrow Wilson',
@@ -71,7 +71,7 @@ const STORE = [
             'What Western U.S. national park is a regular destination for large cruise ships?',
         answers: [
             'Glacier Bay',
-            'Glacer',
+            'Glacier',
             'Great Basin',
             'Great Sand Dunes'
         ],
@@ -179,10 +179,8 @@ function startQuiz() {
 //create HTML for question
 function generateQ(qid) {
     var letQHtml = ` 
-<div class="question"> 
-    <h2>${STORE[qid].question}</h2> 
-</div> 
-<div class="answers"> 
+<h2>${STORE[qid].question}</h2>
+<form class="answers"> 
 <label> 
 <input class="answers" type="radio" name="selection" value="${STORE[qid].answers[0]}" checked>
 ${STORE[qid].answers[0]}
@@ -201,7 +199,7 @@ ${STORE[qid].answers[3]}
 </label>
 <br>
 <button type="submit" id="subAns">Submit</button>
-</div>
+</form>
 `;
     return letQHtml;
 };
@@ -215,6 +213,7 @@ function askQuestion() {
 //user selects answer & correct/incorrect screen presents
 function submitAnswer() {
     $('#question').on('click', '#subAns', function (event) {
+        event.preventDefault();
         let selectedVal = $('input:checked');
         let answer = selectedVal.val();
         let correctSelect = STORE[qid].correctAnswer;
@@ -236,16 +235,20 @@ function correctAns() {
     //randomImage();
     if (qid <= 8) {
         $('#answer').html(
-            `<h3>You got it!</h3>
+            `<h2>You got it!</h2>
     <img class="prettyPic" src="images/thumbsup.jpeg" alt="hiker giving a thumbs up" class="images" width="200px">
-      <button type="button" class="nextButton button">Next Question</button>`
+    <section>
+      <button type="button" class="nextButton button">Next Question</button>
+    </section>`
         );
         updateScore();
     } else {
         $('#answer').html(
-            `<h3>You got it!</h3>
+            `<h2>You got it!</h2>
     <img class="prettyPic" src="images/thumbsup.jpeg" alt="" class="images" name="canvas" width="200px">
-      <button type="button" class="restartQuiz">Retake Quiz</button>`);
+    <section>
+      <button type="button" class="restartQuiz">Retake Quiz</button>
+    </section>`);
       currentScore();
     }
 }
@@ -255,20 +258,24 @@ function incorrectAns() {
     //randomImage();
     if (qid <= 8) {
         $('#answer').html(
-            `<h3>Oops, not quite...</h3>
+            `<h2>Oops, not quite...</h2>
     <img class="prettyPic" src="images/sadHiker.jpg" alt="Horseshoe Bend, AZ" width="200px">
     <p class="rightAns">The correct answer is:</p>
     <p class="rightAns">${STORE[qid].correctAnswer}</p>
-    <button type="button" class="nextButton">Next</button>`
+    <section>
+    <button type="button" class="nextButton">Next Question</button>
+    </section>`
         );
         currentScore();
     } else {
         $('#answer').html(
-            `<h3>Oops, not quite...</h3>
+            `<h2>Oops, not quite...</h2>
     <img class="prettyPic" src="images/sadHiker.jpg" alt="Horseshoe Bend, AZ" width="200px">
     <p class="rightAns">The correct answer is:</p>
     <p class="rightAns">${STORE[qid].correctAnswer}</p>
-    <button type="button" class="restartQuiz">Retake Quiz</button>`
+    <section>
+    <button type="button" class="restartQuiz">Retake Quiz</button>
+    </section>`
         );
         currentScore();
     }
