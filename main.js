@@ -133,19 +133,18 @@ const STORE = [
 
 ];
 
-//var imagesArray = ['pic1.jpeg', 'pic2.jpeg', 'pic3.jpeg', 'pic4.jpeg'];
+var imagesArray = ['pic1.jpeg', 'pic2.jpeg', 'pic3.jpeg', 'pic4.jpeg', 'pic5.jpeg', 'pic6.jpeg', 'pic7.jpeg', 'pic8.jpeg', 'pic9.jpeg', 'pic10.jpeg'];
 
 let questionNumber = 0;
 let currentQuestion = STORE[questionNumber].question;
 var qid = 0;
 var score = 0;
 
-/*
 //generate random image
 function randomImage() {
     var num = Math.floor(Math.random() * (imagesArray.length+1));
-    $('#.prettyPic').prop('src', `images/+${imagesArray[num]}`);
-};*/
+    $('.randomPic').attr('src', `images/${imagesArray[num]}`);
+};
 
 //update question number
 function updateQuesNum() {
@@ -169,6 +168,7 @@ function currentScore() {
 function startQuiz() {
     $('#start').on('click', function (event) {
         event.preventDefault();
+        randomImage();
         askQuestion();
         $('.container1').hide();
         $('.start-button').hide();
@@ -232,7 +232,7 @@ function submitAnswer() {
 
 //displays if user answers correctly
 function correctAns() {
-    //randomImage();
+    $('.randomPic').hide();
     if (qid <= 8) {
         $('#answer').html(
             `<h2>You got it!</h2>
@@ -255,7 +255,7 @@ function correctAns() {
 
 //displays if user answers incorrectly
 function incorrectAns() {
-    //randomImage();
+    $('.randomPic').hide();
     if (qid <= 8) {
         $('#answer').html(
             `<h2>Oops, not quite...</h2>
@@ -285,12 +285,15 @@ function incorrectAns() {
 function nextQuestion() {
     $('#answer').on('click', '.nextButton', function (event) {
         event.preventDefault();
+        $('.randomPic').show();
+        randomImage();
         qid++;
         let newHTML = generateQ(qid);
         $('#question').html(newHTML);
         $('#question').show();
         updateQuesNum();
         $('#answer').hide();
+        
     });
 };
 
@@ -308,6 +311,7 @@ function restartQuiz() {
         $('#question').show();
         updateQuesNum();
         updateScore();
+        randomImage();
     });
 }
 
